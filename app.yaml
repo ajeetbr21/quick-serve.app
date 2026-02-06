@@ -1,0 +1,26 @@
+runtime: php81
+env: standard
+
+# environment variables will be updated after Cloud SQL instance creation
+env_variables:
+  DB_HOST: "localhost" # Placeholder, will update to Cloud SQL socket
+  DB_USER: "quickserve_user"
+  DB_PASS: "QuickServePass123!"
+  DB_NAME: "nearbyme_db"
+  # Socket path for Cloud SQL (standard pattern)
+  # DB_SOCKET: "/cloudsql/gen-lang-client-0597846761:us-central1:quickserve-db"
+
+handlers:
+# Serve static files directly
+- url: /assets
+  static_dir: assets
+- url: /uploads
+  static_dir: uploads
+
+# Serve PHP scripts
+- url: /(.+\.php)$
+  script: auto
+
+# Default routing to index.php
+- url: /.*
+  script: auto
